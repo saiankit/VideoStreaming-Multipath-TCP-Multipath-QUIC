@@ -4,7 +4,7 @@ Application that allows the server to stream video to connected client using Mul
 ##### This is developed as a project for the course IS F462 Network Programming at BITS Pilani.
 
 Team Details
-Group Number : NP04
+###### Group Number : NP04
 1. [Battula Venkata Sai Ankit](https://github.com/saiankit) - 2019AAPS0331H
 2. [Sreekar Venkata Nutalapati](https://github.com/sreekarnv) - 2019AAPS1217H
 3. [Sidharth Anand](https://github.com/sidharth-anand/) - 2019A7PS1203H
