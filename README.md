@@ -6,7 +6,7 @@ Application that allows the server to stream video to connected client using Mul
 Team Details
 ###### Group Number : NP04
 1. [Battula Venkata Sai Ankit](https://github.com/saiankit) - 2019AAPS0331H
-2. [Sreekar Venkata Nutalapati](https://github.com/sreekarnv) - 2019AAPS1217H
+2. [Sreekar Venkata Nutulapati](https://github.com/sreekarnv) - 2019AAPS1217H
 3. [Sidharth Anand](https://github.com/sidharth-anand/) - 2019A7PS1203H
 
 Professor Details
