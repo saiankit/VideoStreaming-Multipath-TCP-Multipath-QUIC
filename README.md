@@ -8,7 +8,7 @@ Application that allows the server to stream video to connected client using Mul
 ##### Prerequisites
 
 - [MPTCP kernel](https://www.multipath-tcp.org/)
-- [Mininet](http://mininet.org/) 
+- [Mininet](http://mininet.org/)
 - [python](https://www.python.org/) (3.8+ recommended)
 
 ###### Setting up the mininet network emulation
@@ -20,6 +20,8 @@ This sets up a mininet configuration with a client and a server each having 2 li
 ###### [Instructions](MPTCP/README.md) on running MPTCP Streaming
 ###### [Instructions](MPQUIC/README.md) on running MPQUIC Streaming
 
+#### Architecture
+![architecture](Screenshots/architecture.png)
 ### Team Details
 ###### Group Number : NP04
 1. [Battula Venkata Sai Ankit](https://github.com/saiankit) - 2019AAPS0331H
