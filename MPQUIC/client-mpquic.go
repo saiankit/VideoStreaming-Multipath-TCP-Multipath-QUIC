@@ -14,14 +14,12 @@ import (
 
 const addr = "10.0.2.2:"+config.PORT
 var pl = fmt.Println
-var p = fmt.Print
 
 func main() {
 
 	quicConfig := &quic.Config{
 		CreatePaths: true,
 	}
-
 
 	pl("Trying to connect to: ", addr)
 	sess, err := quic.DialAddr(addr, &tls.Config{InsecureSkipVerify: true}, quicConfig)
@@ -30,17 +28,15 @@ func main() {
 	stream, err := sess.OpenStream()
 	utils.HandleError(err)
 
-	pl("Connection established with server successfully...Starting Video stream")
+	pl("Connected to server\n")
+	pl("Starting Video streaming\n")
 	defer stream.Close()
 
 	webcam, _ := gocv.VideoCaptureDevice(0)
 	img := gocv.NewMat()
-
 	start := time.Now()
-
 	webcam.Read(&img)
 
-	pl("Video Dimensions : ", img.Rows(), " x ", img.Cols())
     var dimens = make([]byte, 4)
 	var bs = make([]byte, 2)
 	binary.LittleEndian.PutUint16(bs, uint16(img.Rows()))
@@ -61,15 +57,14 @@ func main() {
 			stream.Write(b[ind:end])
 			ind = end
 		}
-		
+
 	}
 	stream.Write([]byte{0,0,0,0})
 	webcam.Close()
 
 	elapsed := time.Since(start)
-	pl("\nEnding Video Stream, Duration : ", elapsed, " Frames Sent ", count)
+	pl("\nEnded video streaming at: ", elapsed, "Frames Received from server: ", count)
 
 	stream.Close()
 	stream.Close()
-	pl("\n\nThank you!")
 }

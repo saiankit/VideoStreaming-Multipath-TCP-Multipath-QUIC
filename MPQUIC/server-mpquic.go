@@ -12,7 +12,6 @@ import (
 
 const addr = "0.0.0.0:" + config.PORT
 var pl = fmt.Println
-var p = fmt.Print
 
 func main() {
 
@@ -20,7 +19,7 @@ func main() {
 		CreatePaths: true,
 	}
 
-	pl("Attaching to: ", addr)
+	pl("Accepted a Client Connection from: ", addr)
 	listener, err := quic.ListenAddr(addr, utils.GenerateTLSConfig(), quicConfig)
 	utils.HandleError(err)
 
@@ -31,26 +30,24 @@ func main() {
 	stream, err := sess.AcceptStream()
 	utils.HandleError(err)
 
-	pl("Broadcasting incoming video stream...")
+	pl("Started Video Streaming...")
 	defer stream.Close()
-	
+
 	time.Sleep(10*time.Millisecond)
 	start := time.Now()
 
 	buffer := make([]byte, config.BUFFER_SIZE)
 
 
-    // var frame gocv.Mat
     var rows = -1
     var cols = -1
-	
+
 	window := gocv.NewWindow("Output")
-  
+
     var dimens = make([]byte, 4)
     stream.Read(dimens)
 	rows = int(dimens[1]) << 8 + int(dimens[0])
 	cols = int(dimens[3]) << 8 + int(dimens[2])
-	pl("Video Dimensions : ", rows, " x ", cols)
 	var data = make([]byte, 3*rows*cols)
     var dataind = 0
 
@@ -76,8 +73,7 @@ func main() {
 	}
 
 	elapsed := time.Since(start)
-	pl("\nEnding video transmission, Duration: ", elapsed, " Frames Captured ", count)
+	pl("\nEnded video streaming at: ", elapsed, "Frames Sent to client: ", count)
 	stream.Close()
 	stream.Close()
-	pl("\n\nThank you!")
 }
