@@ -43,7 +43,10 @@ def startServer(host,port):
                 # Handles the mirroring of the current frame
                 frame = cv2.flip(frame,1)
                 frame = cv2.resize(frame, None, fx=  0.5, fy = 0.5, interpolation = cv2.INTER_AREA)
-                conn.sendall(utils.encodeNumPyArray(frame))
+                conn.sendall(utils.encodeNumPyArray(frame, True))
+                conn.sendall(utils.encodeNumPyArray(frame, False))
+                #conn.sendall(utils.encodeNumPyArray(frame))
+                print(frame_count)
                 frame_count += 1
                 # Limiting the number of frames transmitted to 200
                 if(frame_count==200):

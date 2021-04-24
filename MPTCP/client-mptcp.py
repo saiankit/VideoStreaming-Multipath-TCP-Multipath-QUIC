@@ -29,6 +29,7 @@ def startClient(host, port):
     cols1, cols2 = -1, -1
     rows, cols = 0, 0
     pos_i, pos_j, pos_k = 0, 0, 0
+    next_change = -1
     while True:
         try:
             data_pos = 0
@@ -60,6 +61,11 @@ def startClient(host, port):
                         frame = np.zeros((rows, cols, 3), np.uint8)
                         if data_pos>=len(data):
                             raise DataExceededError
+                    if next_change==-1:
+                        next_change = data[data_pos]
+                        data_pos = data_pos + 1
+                        if data_pos>=len(data):
+                            raise DataExceededError
                 frame[pos_i][pos_j][pos_k] = data[data_pos]
                 data_pos = data_pos + 1
                 pos_k = pos_k+1
@@ -69,17 +75,22 @@ def startClient(host, port):
                     if pos_j == cols:
                         pos_j = 0
                         pos_i = pos_i + 1
-                        if pos_i == rows:
+                        if pos_i >= rows:
+                            print(next_change)
                             pos_i = 0
-                            frameOld = frame
+                            if frameOld is None:
+                                frameOld = np.zeros((rows * 2, cols, 3), np.uint8)
+                            frameOld[next_change::2] = frame
                             frame_count = frame_count + 1
                             frame = None
                             rows1 = -1
                             rows2 = -1
                             cols1 = -1
                             cols2 = -1
+                            next_change=-1
                             rows = 0
                             cols = 0
+                            print(frame_count)
                             cv2.imshow('Output', frameOld)
                             cv2.waitKey(1)
         except DataExceededError:
