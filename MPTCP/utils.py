@@ -17,4 +17,4 @@ def encodeNumPyArray(fr, even=False):
 
     temp = np.array([nor[0],nor[1],noc[0],noc[1], even_byte[0]], np.uint8)
 
-    return np.concatenate((temp, half_frame), axis=None).tobytes()  
+    return np.concatenate((temp, half_frame), axis=None).tobytes()

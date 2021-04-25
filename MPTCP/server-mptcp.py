@@ -25,7 +25,7 @@ def startServer(host,port):
         conn, addr = sock.accept()
         print('Accepted a Client Connection from: ',addr)
         print('  Socket Name: ', conn.getsockname())
-        print('  Socket Oeer: ', conn.getpeername())
+        print('  Socket Peer: ', conn.getpeername())
         if conn:
             # Creating a Video Capture Object for opencv
             video_capture_object  = cv2.VideoCapture(0)
@@ -43,10 +43,10 @@ def startServer(host,port):
                 # Handles the mirroring of the current frame
                 frame = cv2.flip(frame,1)
                 frame = cv2.resize(frame, None, fx=  0.5, fy = 0.5, interpolation = cv2.INTER_AREA)
+                # Sending even half frame across the subflow
                 conn.sendall(utils.encodeNumPyArray(frame, True))
+                # Sending odd half frame across the subflow
                 conn.sendall(utils.encodeNumPyArray(frame, False))
-                #conn.sendall(utils.encodeNumPyArray(frame))
-                print(frame_count)
                 frame_count += 1
                 # Limiting the number of frames transmitted to 200
                 if(frame_count==200):

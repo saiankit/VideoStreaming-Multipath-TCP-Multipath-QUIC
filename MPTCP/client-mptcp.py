@@ -76,7 +76,6 @@ def startClient(host, port):
                         pos_j = 0
                         pos_i = pos_i + 1
                         if pos_i >= rows:
-                            print(next_change)
                             pos_i = 0
                             if frameOld is None:
                                 frameOld = np.zeros((rows * 2, cols, 3), np.uint8)
@@ -90,7 +89,6 @@ def startClient(host, port):
                             next_change=-1
                             rows = 0
                             cols = 0
-                            print(frame_count)
                             cv2.imshow('Output', frameOld)
                             cv2.waitKey(1)
         except DataExceededError:
